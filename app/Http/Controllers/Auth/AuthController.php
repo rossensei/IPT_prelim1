@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Jobs\RegisterJob;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -57,11 +58,7 @@ class AuthController extends Controller
         $credentials['remember_token'] = Str::random(24);
         $user = User::create($credentials);
 
-        Mail::send('auth.verification-mail', ['user' => $user], function($mail) use ($user) {
-            $mail->to($user->email);
-            $mail->subject('Account Verification');
-
-        });
+        RegisterJob::dispatch($user);
 
         return redirect('/')->with('message', 'Your account has been created. Please check your email for verification.');
     }

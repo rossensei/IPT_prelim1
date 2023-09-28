@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ItemController;
 
 /*
@@ -40,3 +41,5 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/verification/{user}/{token}', [AuthController::class, 'verification']);
 });
+
+Route::get('/sendmail', [EmailController::class, 'sendEmail']);
