@@ -22,7 +22,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.create');
     }
 
     /**
@@ -30,7 +30,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
     }
 
     /**

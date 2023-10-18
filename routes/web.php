@@ -28,6 +28,8 @@ Route::middleware(['auth','verified'])->group(function() {
     })->name('dashboard');
 
     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
